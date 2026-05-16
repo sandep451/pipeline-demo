@@ -3,46 +3,147 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>My Web Page</title>
+  <title>Sandeep's Web Page</title>
 
   <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
     body {
+      height: 100vh;
+      overflow: hidden;
       font-family: Arial, sans-serif;
-      background-color: #f4f4f4;
-      text-align: center;
-      padding-top: 100px;
+      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      color: white;
+      position: relative;
     }
 
     h1 {
-      color: #333;
-      font-size: 40px;
+      font-size: 55px;
+      text-shadow: 0 0 20px cyan;
+      margin-bottom: 20px;
+      animation: glow 2s infinite alternate;
+    }
+
+    @keyframes glow {
+      from {
+        text-shadow: 0 0 10px #00ffff;
+      }
+      to {
+        text-shadow: 0 0 30px #00ffff, 0 0 50px #00ffff;
+      }
     }
 
     button {
-      padding: 12px 25px;
-      font-size: 18px;
-      background-color: #007bff;
-      color: white;
+      padding: 15px 35px;
+      font-size: 20px;
       border: none;
-      border-radius: 8px;
+      border-radius: 50px;
+      background: linear-gradient(45deg, #ff416c, #ff4b2b);
+      color: white;
       cursor: pointer;
+      transition: 0.3s;
+      box-shadow: 0 0 20px rgba(255, 75, 43, 0.7);
     }
 
     button:hover {
-      background-color: #0056b3;
+      transform: scale(1.1);
+      box-shadow: 0 0 30px rgba(255, 75, 43, 1);
+    }
+
+    #message {
+      margin-top: 30px;
+      font-size: 32px;
+      font-weight: bold;
+      color: #ffe600;
+      text-align: center;
+      opacity: 0;
+      transform: scale(0.5);
+      transition: all 0.8s ease;
+      text-shadow: 0 0 15px #ff0;
+    }
+
+    #message.show {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    /* Fireworks */
+    .firework {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      animation: explode 1s ease-out forwards;
+    }
+
+    @keyframes explode {
+      0% {
+        transform: scale(1);
+        opacity: 1;
+      }
+
+      100% {
+        transform: translate(var(--x), var(--y)) scale(0);
+        opacity: 0;
+      }
     }
   </style>
 </head>
 
 <body>
 
-  <h1>J Sandeep Reddy</h1>
+  <h1>🎉 J Sandeep Reddy 🎉</h1>
 
-  <button onclick="showMessage()">Click Here</button>
+  <button onclick="celebrate()">
+    Click Here
+  </button>
+
+  <div id="message">
+    🚀 Hurry !! Your Web Page is Ready, J Sandeep Reddy 🚀
+  </div>
 
   <script>
-    function showMessage() {
-      alert("Hurry !! Your web page is ready, J Sandeep Reddy");
+    function celebrate() {
+
+      // Show message
+      document.getElementById("message").classList.add("show");
+
+      // Create fireworks
+      for (let i = 0; i < 120; i++) {
+
+        const firework = document.createElement("div");
+        firework.classList.add("firework");
+
+        // Random position
+        firework.style.left = Math.random() * window.innerWidth + "px";
+        firework.style.top = Math.random() * window.innerHeight + "px";
+
+        // Random colors
+        firework.style.background =
+          `hsl(${Math.random() * 360}, 100%, 50%)`;
+
+        // Random explosion direction
+        firework.style.setProperty("--x",
+          `${(Math.random() - 0.5) * 300}px`);
+
+        firework.style.setProperty("--y",
+          `${(Math.random() - 0.5) * 300}px`);
+
+        document.body.appendChild(firework);
+
+        // Remove after animation
+        setTimeout(() => {
+          firework.remove();
+        }, 1000);
+      }
     }
   </script>
 
